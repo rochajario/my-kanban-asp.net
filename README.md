@@ -42,22 +42,22 @@
         </tr>
         <tr>
             <td>FR01</td>
-            <td>When created, a Board should be given an 'Active' status</td>
+            <td align="left">When created, a Board should be given an 'Active' status</td>
             <td>Board Management</td>
         </tr>
         <tr>
             <td>FR02</td>
-            <td>An active Board should allow the user finishing all children Tasks at once;</td>
+            <td align="left">An active Board should allow the user finishing all children Tasks at once;</td>
             <td>Board Management</td>
         </tr>
         <tr>
             <td>FR03</td>
-            <td>When an active Board is deleted, all children Tasks are deleted also;</td>
+            <td align="left">When an active Board is deleted, all children Tasks are deleted also;</td>
             <td>Board Management</td>
         </tr>
         <tr>
             <td>FR04</td>
-            <td>
+            <td align="left">
                 When a Board receives an 'Inactive' status:
                 <ol>
                     <li>Children Tasks can't be changed in any way;</li>
@@ -68,32 +68,32 @@
         </tr>
         <tr>
             <td>FR05</td>
-            <td>Tasks must be related to a single board, meaning that they belong to a specific context;</td>
+            <td align="left">Tasks must be related to a single board, meaning that they belong to a specific context;</td>
             <td>Task Management</td>
         </tr>
         <tr>
             <td>FR06</td>
-            <td>When created, tasks must be given a status of "New Task", meaning that it still waits for an interaction;</td>
+            <td align="left">When created, tasks must be given a status of "New Task", meaning that it still waits for an interaction;</td>
             <td>Task Management</td>
         </tr>
         <tr>
             <td>FR07</td>
-            <td>Each and every interaction in tasks must change it's 'lastUpdate' field;</td>
+            <td align="left">Each and every interaction in tasks must change it's 'lastUpdate' field;</td>
             <td>Task Management</td>
         </tr>
         <tr>
             <td>FR08</td>
-            <td>Tasks waiting to be done and ongoing tasks should allow adding comments;</td>
+            <td align="left">Tasks waiting to be done and ongoing tasks should allow adding comments;</td>
             <td>Task Management</td>
         </tr>
         <tr>
             <td>FR09</td>
-            <td>Finished tasks should not allow adding comments;</td>
+            <td align="left">Finished tasks should not allow adding comments;</td>
             <td>Task Management</td>
         </tr>
         <tr>
             <td>FR10</td>
-            <td>
+            <td align="left">
                 Tasks can be Finished in two ways:
                 <ol>
                     <li>Canceled;</li>
@@ -107,17 +107,17 @@
         </tr>
         <tr>
             <td>NFR01</td>
-            <td>App must be optimed to work in small screens (mobile devices);</td>
+            <td align="left">App must be optimed to work in small screens (mobile devices);</td>
             <td>User Experience</td>
         </tr>
         <tr>
             <td>NFR02</td>
-            <td>App data must be persisted in a free Relational database;</td>
+            <td align="left">App data must be persisted in a free Relational database;</td>
             <td>Implementation</td>
         </tr>
         <tr>
             <td>NFR03</td>
-            <td>System must be built using Onion Architecture in order to set a standard of maintanence and growth overtime.</td>
+            <td align="left">System must be built using Onion Architecture in order to set a standard of maintanence and growth overtime.</td>
             <td>Implementation</td>
         </tr>
     </table>
