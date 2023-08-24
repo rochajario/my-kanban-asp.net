@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore ./my-kanban/my-kanban.sln
+      run: dotnet restore ./my-kanban
     - name: Build
-      run: dotnet build ./my-kanban/my-kanban.sln --no-restore
+      run: dotnet build ./my-kanban --no-restore
     - name: Test
-      run: dotnet test ./my-kanban/my-kanban.sln --no-build --verbosity normal
+      run: dotnet test ./my-kanban --no-build --verbosity normal
