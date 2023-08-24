@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build .\my-kanban\ --no-restore
+      run: dotnet build ./my-kanban --no-restore
     - name: Test
-      run: dotnet test .\my-kanban\ --no-build --verbosity normal
+      run: dotnet test ./my-kanban --no-build --verbosity normal
