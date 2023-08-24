@@ -7,7 +7,8 @@ namespace Service.Interfaces
     {
         void CreateBoard(BoardDto boardDto);
         void DeleteBoard(int id);
-        void FinishAllChildrenTasks(int id);
+        void FinishBoardAllChildrenTasks(int id);
         IEnumerable<BoardEntity> GetAllBoards();
+        BoardEntity GetBoardWithChildrenTasks(int id);
     }
 }

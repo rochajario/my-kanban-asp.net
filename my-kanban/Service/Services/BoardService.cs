@@ -43,7 +43,7 @@ namespace Service.Services
             }
         }
 
-        public void FinishAllChildrenTasks(int id)
+        public void FinishBoardAllChildrenTasks(int id)
         {
             BoardEntity board = _boardRepository.GetWithChildrenTasks(id);
             ValidateBoardState(board);
@@ -52,7 +52,9 @@ namespace Service.Services
             foreach (var task in nonConcludedTasks)
             {
                 task.Status = TaskState.Concluded;
+                task.UpdatedAt = DateTime.UtcNow;
             }
+            board.UpdatedAt = DateTime.UtcNow;
 
             _boardRepository.Update(board);
         }
@@ -60,6 +62,11 @@ namespace Service.Services
         public IEnumerable<BoardEntity> GetAllBoards()
         {
             return _boardRepository.GetAll();
+        }
+
+        public BoardEntity GetBoardWithChildrenTasks(int id)
+        {
+            return _boardRepository.GetWithChildrenTasks(id);
         }
     }
 }

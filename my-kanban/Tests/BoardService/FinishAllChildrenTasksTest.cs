@@ -25,7 +25,7 @@ namespace Tests.BoardService
             #endregion
 
             #region Act
-            InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => sut.FinishAllChildrenTasks((int)board.Id!));
+            InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => sut.FinishBoardAllChildrenTasks((int)board.Id!));
             #endregion
 
 
@@ -52,7 +52,7 @@ namespace Tests.BoardService
             #endregion
 
             #region Act
-            sut.FinishAllChildrenTasks((int)board.Id!);
+            sut.FinishBoardAllChildrenTasks((int)board.Id!);
             #endregion
 
 
@@ -79,7 +79,7 @@ namespace Tests.BoardService
             #endregion
 
             #region Act
-            sut.FinishAllChildrenTasks((int)board.Id!);
+            sut.FinishBoardAllChildrenTasks((int)board.Id!);
             #endregion
 
 
