@@ -3,7 +3,11 @@
     <strong>Software Engineering Experiment - Practical Knowledge Integralization</strong><br/>
     Pontificial Catholic University of Minas Gerais - PUC Minas<br/>
     Post Graduation - Software Engineering Specialization<br/>
-    2023
+    2023<br/>
+    <br/>
+    <a href="https://github.com/rochajario/my-kanban-asp.net/actions/workflows/Build_And_Test.yml">
+        <img src="https://github.com/rochajario/my-kanban-asp.net/actions/workflows/Build_And_Test.yml/badge.svg?branch=main" alt="Build and Test">
+    </a>
 </div>
 
 <h2>Summary</h2>
