@@ -1,5 +1,6 @@
 ﻿using Domain.Dtos;
 using Domain.Entities;
+using Domain.Enums;
 
 namespace Service.Interfaces
 {
@@ -10,5 +11,6 @@ namespace Service.Interfaces
         void FinishBoardAllChildrenTasks(int id);
         IEnumerable<BoardEntity> GetAllBoards();
         BoardEntity GetBoardWithChildrenTasks(int id);
+        void SetBoardState(int id, BoardState inactive);
     }
 }

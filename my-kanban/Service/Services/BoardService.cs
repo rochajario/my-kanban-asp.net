@@ -68,5 +68,13 @@ namespace Service.Services
         {
             return _boardRepository.GetWithChildrenTasks(id);
         }
+
+        public void SetBoardState(int id, BoardState state)
+        {
+            var entity = _boardRepository.Get(id);
+            entity.Status = state;
+            entity.UpdatedAt = DateTime.UtcNow;
+            _boardRepository.Update(entity);
+        }
     }
 }
