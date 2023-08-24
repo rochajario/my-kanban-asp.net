@@ -1,6 +1,6 @@
 ﻿namespace Tests
 {
-    public abstract class BaseUnitTestM<T>
+    public abstract class BaseUnitTest<T>
     {
         public abstract void ClearDependencies();
         public abstract T GetSystemUnderTest();

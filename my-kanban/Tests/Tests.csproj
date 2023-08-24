@@ -27,4 +27,8 @@
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TaskService\" />
+  </ItemGroup>
+
 </Project>

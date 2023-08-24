@@ -45,7 +45,7 @@ namespace Service.Services
 
         public void FinishBoardAllChildrenTasks(int id)
         {
-            BoardEntity board = _boardRepository.GetWithChildrenTasks(id);
+            BoardEntity board = _boardRepository.GetWithChildrenItems(id);
             ValidateBoardState(board);
 
             var nonConcludedTasks = board.Tasks.Where(x => x.Status != TaskState.Concluded);
@@ -66,15 +66,18 @@ namespace Service.Services
 
         public BoardEntity GetBoardWithChildrenTasks(int id)
         {
-            return _boardRepository.GetWithChildrenTasks(id);
+            return _boardRepository.GetWithChildrenItems(id);
         }
 
         public void SetBoardState(int id, BoardState state)
         {
             var entity = _boardRepository.Get(id);
-            entity.Status = state;
-            entity.UpdatedAt = DateTime.UtcNow;
-            _boardRepository.Update(entity);
+            if (state != entity.Status)
+            {
+                entity.Status = state;
+                entity.UpdatedAt = DateTime.UtcNow;
+                _boardRepository.Update(entity);
+            }
         }
     }
 }

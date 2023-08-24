@@ -18,7 +18,7 @@ namespace Tests.BoardService
             ClearDependencies();
 
             _repositoryMock
-                .Setup(x => x.GetWithChildrenTasks((int)board.Id!))
+                .Setup(x => x.GetWithChildrenItems((int)board.Id!))
                 .Returns(board);
 
             var sut = GetSystemUnderTest();
@@ -42,7 +42,7 @@ namespace Tests.BoardService
             ClearDependencies();
 
             _repositoryMock
-                .Setup(x => x.GetWithChildrenTasks((int)board.Id!))
+                .Setup(x => x.GetWithChildrenItems((int)board.Id!))
                 .Returns(board);
             _repositoryMock
                 .Setup(x => x.Update(It.IsAny<BoardEntity>()))
@@ -57,7 +57,7 @@ namespace Tests.BoardService
 
 
             #region Assert
-            _repositoryMock.Verify(x => x.GetWithChildrenTasks((int)board.Id!), Times.Once);
+            _repositoryMock.Verify(x => x.GetWithChildrenItems((int)board.Id!), Times.Once);
             #endregion
         }
 
@@ -69,7 +69,7 @@ namespace Tests.BoardService
             ClearDependencies();
 
             _repositoryMock
-                .Setup(x => x.GetWithChildrenTasks(1))
+                .Setup(x => x.GetWithChildrenItems(1))
                 .Returns(board);
             _repositoryMock
                 .Setup(x => x.Update(It.IsAny<BoardEntity>()))

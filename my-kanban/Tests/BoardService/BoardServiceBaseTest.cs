@@ -5,12 +5,12 @@ using Sut = Service.Services.BoardService;
 
 namespace Tests.BoardService
 {
-    public class BoardServiceBaseTest : BaseUnitTestM<IBoardService>
+    public class BoardServiceBaseTest : BaseUnitTest<IBoardService>
     {
         protected Mock<IBoardRepository> _repositoryMock = new(MockBehavior.Strict);
         public override void ClearDependencies()
         {
-            _repositoryMock = new(MockBehavior.Strict);
+            _repositoryMock.Reset();
         }
 
         public override IBoardService GetSystemUnderTest()

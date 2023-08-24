@@ -26,7 +26,7 @@ namespace Tests.BoardService
             };
             ClearDependencies();
 
-            _repositoryMock.Setup(x => x.GetWithChildrenTasks(It.IsAny<int>())).Returns(entity);
+            _repositoryMock.Setup(x => x.GetWithChildrenItems(It.IsAny<int>())).Returns(entity);
 
             var sut = GetSystemUnderTest();
             #endregion
@@ -36,7 +36,7 @@ namespace Tests.BoardService
             #endregion
 
             #region Assert
-            _repositoryMock.Verify(x => x.GetWithChildrenTasks((int)entity.Id!), Times.Once);
+            _repositoryMock.Verify(x => x.GetWithChildrenItems((int)entity.Id!), Times.Once);
             #endregion
         }
     }

@@ -4,6 +4,6 @@ namespace Repository.Interfaces
 {
     public interface IBoardRepository : IRepository<BoardEntity>
     {
-        BoardEntity GetWithChildrenTasks(int id);
+        BoardEntity GetWithChildrenItems(int id);
     }
 }

@@ -10,7 +10,7 @@ namespace Repository.Repsitories
         {
         }
 
-        public BoardEntity GetWithChildrenTasks(int id)
+        public BoardEntity GetWithChildrenItems(int id)
         {
             return _context
                 .Boards
