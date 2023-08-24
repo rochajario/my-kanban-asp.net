@@ -8,6 +8,32 @@ namespace Tests.BoardService
 {
     public class FinishAllChildrenTasksTest : BoardServiceBaseTest
     {
+        [Fact(DisplayName = "Given method call, When Board is Inactive, Then should not allow finishing tasks")]
+        public void InvalidFinishingCondition()
+        {
+            #region Arrange
+            BoardEntity board = GetDummyEntity();
+            board.Status = BoardState.Inactive;
+
+            ClearDependencies();
+
+            _repositoryMock
+                .Setup(x => x.GetWithChildrenTasks((int)board.Id!))
+                .Returns(board);
+
+            var sut = GetSystemUnderTest();
+            #endregion
+
+            #region Act
+            InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => sut.FinishAllChildrenTasks((int)board.Id!));
+            #endregion
+
+
+            #region Assert
+            Assert.Contains("State Inactive", ex.Message);
+            #endregion
+        }
+
         [Fact(DisplayName = "Given method call, Then verify search call in Database")]
         public void ValidateCorrectChildrenIdentification()
         {

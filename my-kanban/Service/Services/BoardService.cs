@@ -31,18 +31,24 @@ namespace Service.Services
         public void DeleteBoard(int id)
         {
             var board = _boardRepository.Get(id);
+            ValidateBoardState(board);
+            _boardRepository.Delete(id);
+        }
+
+        private static void ValidateBoardState(BoardEntity board)
+        {
             if (board.Status == BoardState.Inactive)
             {
                 throw new InvalidOperationException("Board State Inactive.");
             }
-            _boardRepository.Delete(id);
         }
 
         public void FinishAllChildrenTasks(int id)
         {
             BoardEntity board = _boardRepository.GetWithChildrenTasks(id);
-            var nonConcludedTasks = board.Tasks.Where(x => x.Status != TaskState.Concluded);
+            ValidateBoardState(board);
 
+            var nonConcludedTasks = board.Tasks.Where(x => x.Status != TaskState.Concluded);
             foreach (var task in nonConcludedTasks)
             {
                 task.Status = TaskState.Concluded;
