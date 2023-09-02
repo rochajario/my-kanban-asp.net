@@ -9,7 +9,8 @@ namespace Repository.Configurations
         {
             builder
                 .Entity<BoardEntity>()
-                .HasMany(x => x.Tasks);
+                .HasMany(x => x.Tasks)
+                .WithOne(x => x.Board);
 
             return builder;
         }

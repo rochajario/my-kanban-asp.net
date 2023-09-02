@@ -11,7 +11,7 @@ namespace Tests.BoardService
         public void CallFullRequestMethodOnDatabase()
         {
             #region Arrange
-            BoardEntity entity = new ()
+            BoardEntity entity = new()
             {
                 Id = 1,
                 Status = BoardState.Active,

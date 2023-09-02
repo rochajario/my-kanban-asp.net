@@ -1,0 +1,54 @@
+﻿@using Domain.Entities;
+@using Domain.Enums;
+@{
+    ViewData["Title"] = "TaskBoard Page";
+    BoardEntity boardDetails = ViewBag.BoardDetails;
+
+    Dictionary<string, List<TaskEntity>> columns = new()
+    {
+        {"To-Do", boardDetails.Tasks.Where(t => t.Status == TaskState.Todo).ToList() },
+        {"Doing", boardDetails.Tasks.Where(t => t.Status == TaskState.Doing).ToList() },
+        {"Done", boardDetails.Tasks.Where(t => t.Status == TaskState.Canceled || t.Status == TaskState.Concluded).ToList() },
+    };
+}
+
+<section id="tasks">
+    <h2> Board: @boardDetails.Name</h2>
+    <p>@boardDetails.Description</p>
+    @foreach (KeyValuePair<string, List<TaskEntity>> column in columns)
+    {
+        <h3>@column.Key</h3>
+        <ul>
+            @foreach (TaskEntity task in column.Value)
+            {
+                <li>
+                    <strong>@task.Name</strong><br />
+                    @if (task.Status == TaskState.Todo)
+                    {
+                        <a asp-area="" asp-controller="Tasks" asp-action="SetToDoing" asp-route-taskId="@task.Id">Doing</a>
+                    }
+                    @if (task.Status == TaskState.Doing)
+                    {
+                        <a asp-area="" asp-controller="Tasks" asp-action="SetToTodo" asp-route-taskId="@task.Id">To Do</a>
+
+                        <a asp-area="" asp-controller="Tasks" asp-action="SetToConcluded" asp-route-taskId="@task.Id">Concluded</a>  <a asp-area="" asp-controller="Tasks" asp-action="SetToCanceled" asp-route-taskId="@task.Id">Canceled</a>
+                    }
+                    @if( task.Status == TaskState.Concluded || task.Status == TaskState.Canceled)
+                    {
+                        <a asp-area="" asp-controller="Tasks" asp-action="SetToDoing" asp-route-taskId="@task.Id">Doing</a>
+                    }
+                </li>
+            }
+        </ul>
+    }
+</section>
+<hr />
+<section id="configure">
+    <form method="post" asp-controller="Tasks" asp-action="NewTask" asp-route-boardId="@boardDetails.Id">
+        <input type="text" name="taskName" />
+        <input type="text" name="taskDescription" />
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+

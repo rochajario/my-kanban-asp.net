@@ -7,7 +7,7 @@ namespace Tests.BoardService
 {
     public class SetBoardStateTest : BoardServiceBaseTest
     {
-        [Fact (DisplayName = "Given Active Board, When set board to inactive, then verify dabase update")]
+        [Fact(DisplayName = "Given Active Board, When set board to inactive, then verify dabase update")]
         public void SwitchBoardState()
         {
             #region Arrange

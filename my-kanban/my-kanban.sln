@@ -3,20 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "domain\Domain.csproj", "{D33A90B3-234B-41C9-B44E-1B8444DD678B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "domain\Domain.csproj", "{D33A90B3-234B-41C9-B44E-1B8444DD678B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{616838C3-2031-44F5-BBEF-1E0999318AD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{616838C3-2031-44F5-BBEF-1E0999318AD0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D33A90B3-234B-41C9-B44E-1B8444DD678B} = {D33A90B3-234B-41C9-B44E-1B8444DD678B}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{0FCFAE8C-B348-40A1-B93A-389EBF7BB350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{0FCFAE8C-B348-40A1-B93A-389EBF7BB350}"
 	ProjectSection(ProjectDependencies) = postProject
 		{616838C3-2031-44F5-BBEF-1E0999318AD0} = {616838C3-2031-44F5-BBEF-1E0999318AD0}
 		{D33A90B3-234B-41C9-B44E-1B8444DD678B} = {D33A90B3-234B-41C9-B44E-1B8444DD678B}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{F2887EC5-3835-4D74-9BF6-0B9F71BE9EE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{F2887EC5-3835-4D74-9BF6-0B9F71BE9EE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterface\UserInterface.csproj", "{474F7B4F-7687-4C62-AB36-524DB8F51314}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0FCFAE8C-B348-40A1-B93A-389EBF7BB350} = {0FCFAE8C-B348-40A1-B93A-389EBF7BB350}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +45,10 @@ Global
 		{F2887EC5-3835-4D74-9BF6-0B9F71BE9EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2887EC5-3835-4D74-9BF6-0B9F71BE9EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2887EC5-3835-4D74-9BF6-0B9F71BE9EE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{474F7B4F-7687-4C62-AB36-524DB8F51314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{474F7B4F-7687-4C62-AB36-524DB8F51314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{474F7B4F-7687-4C62-AB36-524DB8F51314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{474F7B4F-7687-4C62-AB36-524DB8F51314}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

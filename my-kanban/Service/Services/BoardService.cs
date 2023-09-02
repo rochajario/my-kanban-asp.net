@@ -17,15 +17,7 @@ namespace Service.Services
 
         public void CreateBoard(BoardDto boardDto)
         {
-            BoardEntity board = new BoardEntity()
-            {
-                Status = BoardState.Active,
-                Name = boardDto.Name,
-                Description = boardDto.Description,
-                UpdatedAt = DateTime.UtcNow,
-            };
-
-            _boardRepository.Create(board);
+            _boardRepository.Create(boardDto.ToEntity());
         }
 
         public void DeleteBoard(int id)
@@ -78,6 +70,19 @@ namespace Service.Services
                 entity.UpdatedAt = DateTime.UtcNow;
                 _boardRepository.Update(entity);
             }
+        }
+
+        public BoardEntity GetBoard(int id)
+        {
+            return _boardRepository.Get(id);
+        }
+
+        public void AddTask(int boardId, TaskDto task)
+        {
+            TaskEntity taskEntity = task.ToEntity();
+            BoardEntity board = GetBoardWithChildrenTasks(boardId);
+            board.Tasks.Add(taskEntity);
+            _boardRepository.Update(board);
         }
     }
 }

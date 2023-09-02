@@ -19,6 +19,7 @@ namespace Repository.Repsitories
         public void Create(T entity)
         {
             _context.Set<T>().Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -34,7 +35,7 @@ namespace Repository.Repsitories
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>();
+            return _context.Set<T>().ToList();
         }
 
         public void Update(T entity)
@@ -46,6 +47,7 @@ namespace Repository.Repsitories
             }
 
             _context.Entry(item).CurrentValues.SetValues(entity);
+            _context.SaveChanges();
         }
     }
 }

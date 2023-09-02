@@ -1,0 +1,46 @@
+﻿@using Domain.Entities;
+
+@{
+    ViewData["Title"] = "Tasks";
+    BoardEntity boardEntity = ViewBag.BoardData;
+}
+
+<h1>Tasks</h1>
+<ul>
+    @foreach (TaskEntity task in boardEntity.Tasks)
+    {
+        <li>@task.Name</li>
+    }
+</ul>
+
+
+<section id="task-dialog">
+    <!-- Board Modal -->
+    @model Domain.Dtos.BoardDto;
+    <div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="newTaskModalLabel">New Task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-controller="Board" asp-action="NewTask" asp-route-id="@boardEntity.Id" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Task Title</label>
+                            <input type="text" class="form-control" asp-for="Name">
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Task Description</label>
+                            <textarea class="form-control" rows="3" asp-for="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

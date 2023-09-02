@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 
 namespace Repository.Repsitories
@@ -12,11 +11,9 @@ namespace Repository.Repsitories
 
         public BoardEntity GetWithChildrenItems(int id)
         {
-            return _context
-                .Boards
-                .Where(x => x.Id == id)
-                .Include(x => x.Tasks)
-                .SingleOrDefault()!;
+            var board = _context.Boards.Single(x => x.Id == id);
+            _context.Entry(board).Collection(x => x.Tasks).Load();
+            return board;
         }
     }
 }

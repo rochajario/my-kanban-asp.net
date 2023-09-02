@@ -1,4 +1,6 @@
-﻿using Repository.Interfaces;
+﻿using Domain.Entities;
+using Domain.Enums;
+using Repository.Interfaces;
 using Service.Interfaces;
 
 namespace Service.Services
@@ -10,6 +12,19 @@ namespace Service.Services
         public TaskService(ITaskRepository taskRepository)
         {
             _taskRepository = taskRepository;
+        }
+
+        public int ChangeTaskState(int taskId, TaskState taskState)
+        {
+            var task = GetTaskWithParentBoard(taskId);
+            task.Status = taskState;
+            _taskRepository.Update(task);
+            return task.Board!.Id;
+        }
+
+        public TaskEntity GetTaskWithParentBoard(int taskId)
+        {
+            return _taskRepository.GetWithParentItem(taskId);
         }
     }
 }

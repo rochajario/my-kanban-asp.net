@@ -1,0 +1,22 @@
+﻿@using Domain.Entities;
+@{
+    ViewData["Title"] = "Board Page";
+    List<BoardEntity> boards = ViewBag.Boards;
+}
+
+<form method="post" asp-controller="Boards" asp-action="NewBoard">
+    <input type="text" name="boardName"/>
+    <input type="text" name="boardDescription" />
+    <button type="submit">Submit</button>
+</form>
+
+<h3>Boards</h3>
+<ul>
+    @foreach (var board in boards)
+    {
+        <li>
+            <strong>@board.Name</strong> | 
+            <a asp-area="" asp-controller="Tasks" asp-action="Board" asp-route-boardId="@board.Id">View</a>
+        </li>
+    }
+</ul>
