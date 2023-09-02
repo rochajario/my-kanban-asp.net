@@ -14,10 +14,7 @@ namespace Tests.TaskService
             int taskId = 1;
             TaskState taskState = TaskState.Doing;
 
-            ClearDependencies();
-
-            _taskRepositoryMock.Setup(x => x.Update(It.IsAny<TaskEntity>())).Verifiable();
-            _taskRepositoryMock.Setup(x => x.GetWithParentItem(taskId)).Returns(new TaskEntity()
+            var resultEntity = new TaskEntity()
             {
                 Id = taskId,
                 Board = new BoardEntity()
@@ -30,19 +27,28 @@ namespace Tests.TaskService
                 Name = "Test",
                 Description = "Test",
                 Status = TaskState.Todo
-            });
+            };
+
+            ClearDependencies();
+
+            _taskRepositoryMock.Setup(x => x.Update(It.IsAny<TaskEntity>())).Verifiable();
+            _taskRepositoryMock.Setup(x => x.GetWithParentItem(taskId)).Returns(resultEntity);
 
             var sut = GetSystemUnderTest();
             #endregion
 
             #region Act
-            sut.ChangeTaskState(taskId, taskState);
+            int boardId = sut.ChangeTaskState(taskId, taskState);
             #endregion
 
             #region Assert
+            //Should return board's id
+            Assert.True(boardId == resultEntity.Board.Id);
             _taskRepositoryMock.Verify(x => x.GetWithParentItem(taskId), Times.Once);
             _taskRepositoryMock.Verify(x => x.Update(It.IsAny<TaskEntity>()), Times.Once);
             #endregion
         }
+
+        //TODO: Implement test that assert that no change is made in a task if the intended state is the actual state
     }
 }
