@@ -11,44 +11,126 @@
         {"Done", boardDetails.Tasks.Where(t => t.Status == TaskState.Canceled || t.Status == TaskState.Concluded).ToList() },
     };
 }
-
-<section id="tasks">
-    <h2> Board: @boardDetails.Name</h2>
-    <p>@boardDetails.Description</p>
-    @foreach (KeyValuePair<string, List<TaskEntity>> column in columns)
-    {
-        <h3>@column.Key</h3>
-        <ul>
-            @foreach (TaskEntity task in column.Value)
-            {
-                <li>
-                    <strong>@task.Name</strong><br />
-                    @if (task.Status == TaskState.Todo)
-                    {
-                        <a asp-area="" asp-controller="Tasks" asp-action="SetToDoing" asp-route-taskId="@task.Id">Doing</a>
-                    }
-                    @if (task.Status == TaskState.Doing)
-                    {
-                        <a asp-area="" asp-controller="Tasks" asp-action="SetToTodo" asp-route-taskId="@task.Id">To Do</a>
-
-                        <a asp-area="" asp-controller="Tasks" asp-action="SetToConcluded" asp-route-taskId="@task.Id">Concluded</a>  <a asp-area="" asp-controller="Tasks" asp-action="SetToCanceled" asp-route-taskId="@task.Id">Canceled</a>
-                    }
-                    @if( task.Status == TaskState.Concluded || task.Status == TaskState.Canceled)
-                    {
-                        <a asp-area="" asp-controller="Tasks" asp-action="SetToDoing" asp-route-taskId="@task.Id">Doing</a>
-                    }
-                </li>
-            }
-        </ul>
-    }
+<section id="board-details" class="p-3 row">
+    <div class="col-10">
+        <h2 class="display-6">@boardDetails.Name</h2>
+        <p class="text-muted">@boardDetails.Description</p>
+    </div>
+    <div class="col-2 d-flex flex-column justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
+            New Task
+        </button>
+    </div>
+    <hr />
 </section>
-<hr />
-<section id="configure">
-    <form method="post" asp-controller="Tasks" asp-action="NewTask" asp-route-boardId="@boardDetails.Id">
-        <input type="text" name="taskName" />
-        <input type="text" name="taskDescription" />
-        <button type="submit">Submit</button>
-    </form>
+
+<!-- Modal -->
+<section id="taskModal" class="modal fade" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" asp-controller="Tasks" asp-action="NewTask" asp-route-boardId="@boardDetails.Id">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="taskModalLabel">Create New Task</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="taskName" class="form-label">Task Name</label>
+                    <input type="text" class="form-control" id="taskName" name="taskName" aria-describedby="taskNameHelp">
+                    <div id="taskNameHelp" class="form-text">Define here the name that is related to the context of the task.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="taskDescription" class="form-label">Task Description</label>
+                    <input type="text" class="form-control" id="taskDescription" name="taskDescription" aria-describedby="taskDescriptionHelp">
+                    <div id="taskDescriptionHelp" class="form-text">Give it a short description that will help you remember why you created.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section id="tasks" class="mx-4 mt-4">
+    <div class="row">
+        @foreach (KeyValuePair<string, List<TaskEntity>> column in columns)
+        {
+            <section id="@column.Key" class="col-4">
+                <h3>@column.Key</h3>
+                <div class="d-flex flex-column align-center">
+                    @foreach (TaskEntity task in column.Value)
+                    {
+                        @if (task.Status == TaskState.Todo)
+                        {
+                            <div class="card text-light bg-primary mb-3" style="max-width: 18rem;">
+                                <div class="card-header">@task.UpdatedAt</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@task.Name</h5>
+                                    <p class="card-text">@task.Description</p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a asp-area="" asp-controller="Tasks" asp-action="SetToDoing" asp-route-taskId="@task.Id" class="btn btn-outline-light">Move Forward</a>
+                                </div>
+                            </div>
+                        }
+                        @if (task.Status == TaskState.Doing)
+                        {
+                            <div class="card bg-warning mb-3" style="max-width: 18rem;">
+                                <div class="card-header">@task.UpdatedAt</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@task.Name</h5>
+                                    <p class="card-text">@task.Description</p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <section class="dropdown">
+                                        <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Move Task
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a asp-area="" asp-controller="Tasks" asp-action="SetToTodo" asp-route-taskId="@task.Id" class="dropdown-item">To Do</a></li>
+                                            <li><a asp-area="" asp-controller="Tasks" asp-action="SetToConcluded" asp-route-taskId="@task.Id" class="dropdown-item">Concluded</a></li>
+                                            <li><a asp-area="" asp-controller="Tasks" asp-action="SetToCanceled" asp-route-taskId="@task.Id" class="dropdown-item">Canceled</a></li>
+                                        </ul>
+                                    </section>
+                                </div>
+                            </div>
+
+                        }
+                        @if (task.Status == TaskState.Concluded || task.Status == TaskState.Canceled)
+                        {
+                            @if (task.Status == TaskState.Concluded)
+                            {
+                                <div class="card text-light bg-success mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">@task.UpdatedAt</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">@task.Name</h5>
+                                        <p class="card-text">@task.Description</p>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a asp-area="" asp-controller="Tasks" asp-action="SetToDoing" asp-route-taskId="@task.Id" class="btn btn-outline-light">Move Back</a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="card text-light bg-danger mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">@task.UpdatedAt</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">@task.Name</h5>
+                                        <p class="card-text">@task.Description</p>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a asp-area="" asp-controller="Tasks" asp-action="SetToDoing" asp-route-taskId="@task.Id" class="btn btn-outline-light">Move Back</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </section>
+        }
+    </div>
 </section>
 
 

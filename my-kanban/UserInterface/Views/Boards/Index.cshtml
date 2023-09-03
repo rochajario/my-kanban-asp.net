@@ -4,19 +4,81 @@
     List<BoardEntity> boards = ViewBag.Boards;
 }
 
-<form method="post" asp-controller="Boards" asp-action="NewBoard">
-    <input type="text" name="boardName"/>
-    <input type="text" name="boardDescription" />
-    <button type="submit">Submit</button>
-</form>
+<!-- Modal -->
+<section id="boardModal" class="modal fade" tabindex="-1" aria-labelledby="boardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" asp-controller="Boards" asp-action="NewBoard">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="boardModalLabel">Create New Board</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="boardName" class="form-label">Board Name</label>
+                    <input type="text" class="form-control" id="boardName" name="boardName" aria-describedby="boardNameHelp">
+                    <div id="boardNameHelp" class="form-text">Define here the name that is related to the context of the board.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="boardDescription" class="form-label">Board Description</label>
+                    <input type="text" class="form-control" id="boardDescription" name="boardDescription" aria-describedby="boardDescriptionHelp">
+                    <div id="boardDescriptionHelp" class="form-text">Give it a short description that will help you remember why you created.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</section>
 
-<h3>Boards</h3>
-<ul>
-    @foreach (var board in boards)
-    {
-        <li>
-            <strong>@board.Name</strong> | 
-            <a asp-area="" asp-controller="Tasks" asp-action="Board" asp-route-boardId="@board.Id">View</a>
-        </li>
-    }
-</ul>
+<section id="board" class="p-3 row">
+    <div class="col-10">
+        <h2 class="display-6">My Boards</h2>
+        <p class="text-muted">Manage your boards, create task contexts and keep up with all your routines.</p>
+    </div>
+    <div class="col-2 d-flex flex-column justify-content-center">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#boardModal">
+            New Board
+        </button>
+    </div>
+    <hr />
+</section>
+
+
+<section class="container my-3 mx-3">
+    <div class="row gx-3 gy-3">
+        @foreach (var board in boards)
+        {
+            <div class="col-4">
+                <div class="card" style="width: 25rem; height: 100%;">
+                    <div class="card-header">
+                        <h5 class="card-title"><strong>@board.Name</strong></h5>
+                    </div>
+                    <div class="card-body">
+                        <small class="lead">@board.Description</small><br />
+                        <small class="text-body-secondary text-muted">Last Update: @board.UpdatedAt.ToLongDateString()</small>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        <span class="card-body d-flex flex-row flex-nowrap justify-content-between">
+                            <a asp-area="" asp-controller="Tasks" asp-action="Board" asp-route-boardId="@board.Id" class="btn btn-primary">View Tasks</a>
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Configure
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Boards" asp-action="Delete" asp-route-boardId="@board.Id">Delete Board</a></li>
+                                </ul>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+

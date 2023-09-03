@@ -26,6 +26,7 @@ namespace Repository.Repsitories
         {
             var entity = Get(id);
             _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
         }
 
         public T Get(int id)

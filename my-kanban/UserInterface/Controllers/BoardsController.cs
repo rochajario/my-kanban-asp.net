@@ -33,6 +33,12 @@ namespace UserInterface.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Delete(string boardId)
+        {
+            _boardService.DeleteBoard(Convert.ToInt32(boardId));
+            return RedirectToAction("Index");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
