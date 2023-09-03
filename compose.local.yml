@@ -12,3 +12,18 @@ services:
     volumes:
       - ./database/config:/etc/mysql/conf.d
       - ./database/migrations/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my_kanban_internal
+  app:
+    container_name: my_kanban_app
+    build: ./my-kanban
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      CONNECTION_STRING: "server=local_database;user=root;password=local_password;database=local_db"
+    networks:
+      - my_kanban_internal
+networks:
+   my_kanban_internal:

@@ -16,6 +16,9 @@
         <a href="#contextualization">Contextualization</a>
     </li>
     <li>
+        <a href="#running">Running the Application</a>
+    </li>
+    <li>
         <a href="#system-specification">System Specification</a>
     </li>
     <li>
@@ -31,6 +34,26 @@
         With this new level of transparency, you will quickly identify problematic work stages, and by improving those, your team will soon work more efficiently. 
     </p>
 </div>
+
+<h2 id="running">Running the Application</h2>
+
+> Running locally with predefined settings:
+```
+> BUILD & RUN:
+docker compose -f ./compose.local.yml up
+
+> DESTROY & CLEAN:
+docker compose -f ./compose.local.yml down
+```
+> Running in production environments:
+1. Ensure that you have a MySQL or a MariaDB with version 8.0.31 configured and accessible by the environment in wich the service will be deployed;
+2. Use the <a href="./database/migrations/init.sql">init.sql</a> script to initialize a new database schema;
+3. Ensure that the target environment has a variable `CONNECTION_STRING` with the following sintax:
+```
+server=server_address;user=database_user;password=user_password;database=database_schema
+```
+4. Run the application <a href="./my-kanban/Dockerfile">Dockerfile</a> with the command docker run
+
 
 
 <h2>System Specification</h2>

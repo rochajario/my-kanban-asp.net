@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["UserInterface/UserInterface.csproj", "UserInterface/"]
-RUN dotnet restore "UserInterface/UserInterface.csproj"
 COPY . .
-WORKDIR "/src/UserInterface"
-RUN dotnet build "UserInterface.csproj" -c Release -o /app/build
+RUN dotnet restore "my-kanban.sln"
+COPY . .
+WORKDIR "/src"
+RUN dotnet build "./UserInterface/UserInterface.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "UserInterface.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./UserInterface/UserInterface.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
