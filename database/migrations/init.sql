@@ -20,6 +20,7 @@ CREATE TABLE `Tasks` (
     `Status` int NOT NULL,
     CONSTRAINT `PK_Tasks` PRIMARY KEY (`Id`),
     CONSTRAINT `FK_Tasks_Boards_BoardId` FOREIGN KEY (`BoardId`) REFERENCES `Boards` (`Id`)
+    ON DELETE CASCADE
 ) CHARACTER SET=utf8mb4;
 
 CREATE INDEX `IX_Tasks_BoardId` ON `Tasks` (`BoardId`);
